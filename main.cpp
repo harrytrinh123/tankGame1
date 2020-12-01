@@ -154,20 +154,11 @@ int main()
             while(_getch()!=13);
         }
 
-
-
-        time_wait += 100;
-
-        // dan cham tuong
-
-        // Xu li thang thua
-
-
-
         gotoXY(CONSOLE_WIDTH, 3);
         TextColor(112);
         cout << SCORE;
 
+        time_wait += 100;
         Sleep(100);
     }
 
@@ -473,9 +464,9 @@ void VeZome(VatThe zome)
 
 void ZomeDiChuyen(VatThe &zome) {
     int len = 1;
-    if(zome.x == 1)
+    if(zome.x == 2)
         zome.ngang = Phai;
-    else if(zome.x == CONSOLE_WIDTH-31)
+    else if(zome.x == CONSOLE_WIDTH-32)
         zome.ngang = Trai;
     if(zome.ngang == Trai) {
         zome.x--;

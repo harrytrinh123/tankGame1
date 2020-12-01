@@ -29,3 +29,19 @@
 	<math.h>
 	<conio.h>
 
+1606806001 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\console.cpp
+	<stdio.h>
+	<conio.h>
+	"console.h"
+
+1606806001 c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\console.h
+	<windows.h>
+
+1606806753 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
+	<iostream>
+	<time.h>
+	<stdlib.h>
+	"console.h"
+	<math.h>
+	<conio.h>
+
