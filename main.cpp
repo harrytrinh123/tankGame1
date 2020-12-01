@@ -49,6 +49,7 @@ Node *GetNode(VatThe x);
 void AddLast(List &l, Node *x);
 void RemoveFirst(List &l);
 void RemoveAW(List &l, Node *p);
+Node * FindNode(List &L, int x, int y);
 
 /// GameSetting
 void SetWindowConsole(SHORT width, SHORT height);
@@ -147,11 +148,11 @@ int main()
         chamTank = XuLyChamTank(listTuong, tank);
         chamBien = XuLyChamBien(listTuong);
         if(chamTank==-1 || chamBien==-1) {
-            RemoveFirst(listTuong);
             gotoXY(CONSOLE_WIDTH-5, 4);
             TextColor(112);
             cout << "THUA";
             while(_getch()!=13);
+            RemoveFirst(listTuong);
         }
 
 
@@ -211,6 +212,17 @@ void RemoveFirst(List &l)
     delete(p);
     if(l.first == NULL)
         l.last == NULL;
+}
+
+Node * FindNode(List &L, int x, int y) {
+    Node *temp = L.first;
+    while(temp!=NULL) {
+        if(temp->data.x==x && temp->data.y) {
+            return temp;
+        }
+        temp=temp->link;
+    }
+    return NULL;
 }
 
 void RemoveAW(List &l, Node *p)
@@ -409,7 +421,8 @@ void XuLyDanChamGach(List &l_gach, List &l_dan, int &SCORE) {
                 SCORE += p->data.diem;
                 q=q->link;
                 RemoveFirst(l_gach);
-                RemoveFirst(l_dan);
+                if(l_dan.first)
+                    RemoveFirst(l_dan);
             }
             else
                 q=q->link;
@@ -444,7 +457,9 @@ void XuLyChamZome(List &l_dan, VatThe zome) {
         int dX = abs(temp->data.x - zome.x);
         int dY = abs(temp->data.y - zome.y);
         if(dX <2 && dY < 2) {
-            RemoveFirst(l_dan);
+            Node * nodeXoa = FindNode(l_dan, temp->data.x, temp->data.y);
+            if(nodeXoa!=NULL)
+                RemoveAW(l_dan, nodeXoa);
         }
         temp = temp->link;
     }
