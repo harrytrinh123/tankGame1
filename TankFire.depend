@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1443331591 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\game_final3\tankfire\console.cpp
+	<stdio.h>
+	<conio.h>
+	"console.h"
+
+1443331617 c:\users\noname\onedrive\máy tính\bt_ctdlgt\game_final3\tankfire\console.h
+	<windows.h>
+
+1606759851 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\game_final3\tankfire\main.cpp
+	<iostream>
+	<time.h>
+	<stdlib.h>
+	"console.h"
+
+1606786209 source:c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\console.cpp
+	<stdio.h>
+	<conio.h>
+	"console.h"
+
+1606786209 c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\console.h
+	<windows.h>
+
+1606804759 source:c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\main.cpp
+	<iostream>
+	<time.h>
+	<stdlib.h>
+	"console.h"
+	<math.h>
+	<conio.h>
+
