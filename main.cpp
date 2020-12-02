@@ -223,7 +223,7 @@ void RemoveAW(List &l, Node *p)
 
     Node *q = l.first;
     Node *k;
-    while(q != p)
+    while(q!= NULL && q != p)
     {
         k = q;
         q = q->link;
@@ -412,8 +412,13 @@ void XuLyDanChamGach(List &l_gach, List &l_dan, int &SCORE) {
                 SCORE += p->data.diem;
                 q=q->link;
                 RemoveFirst(l_gach);
-                if(l_dan.first)
+//                if(l_dan.first)
+//                {
                     RemoveFirst(l_dan);
+//                    Node *k = q;
+//                    q=q->link;
+//                    RemoveAW(l_dan, k);
+//                }
             }
             else
                 q=q->link;
