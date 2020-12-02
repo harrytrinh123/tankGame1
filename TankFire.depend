@@ -37,11 +37,14 @@
 1606806001 c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\console.h
 	<windows.h>
 
-1606871568 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
+1606877902 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
 	<iostream>
 	<time.h>
 	<stdlib.h>
 	"console.h"
 	<math.h>
 	<conio.h>
+	<thread>
+	<windows.h>
+	<string>
 

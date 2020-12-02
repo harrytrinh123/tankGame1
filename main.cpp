@@ -4,6 +4,10 @@
 #include "console.h"
 #include <math.h>
 #include <conio.h>
+#include <thread>
+#include <windows.h>
+#include <string>
+#pragma comment(lib, "winm.lib")
 
 #define CONSOLE_HEIGHT  25
 #define CONSOLE_WIDTH   50
@@ -11,6 +15,7 @@
 #define MAU_NEN         0
 #define MAU_TANK        153
 #define MAU_GACH        68
+#define MAU_MENU        10
 
 using namespace std;
 
@@ -55,7 +60,7 @@ Node * FindNode(List &L, int x, int y);
 void SetWindowConsole(SHORT width, SHORT height);
 void SetBuffer();
 void SetTank(VatThe &tank);
-void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong);
+void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong, int score);
 void VeMotO(int dong, int cot, char kytu, int mau);
 void VeTank(VatThe tank);
 void VeList(List l);
@@ -74,9 +79,19 @@ void SetZome(VatThe &zome);
 void VeZome(VatThe zome);
 void ZomeDiChuyen(VatThe &zome);
 
+// Scores
+void VeDiem(int score);
+
+// music
+void playBackgroundMusic(LPCSTR path);
+void playSound(LPCSTR path);
+
 int main()
 {
     // Setup Game
+    thread threadPlayBGM(playBackgroundMusic, ".\\music\\e_-_Against_The_Current_128kbps_MP3_.wav");
+    threadPlayBGM.detach();
+
     SetWindowConsole(CONSOLE_WIDTH, CONSOLE_HEIGHT);
     SetBuffer();
     srand(time(NULL));
@@ -101,8 +116,9 @@ int main()
     // Run Game
     while(true)
     {
+
         // Hien Thi
-        HienThi(tank, zome, listDan, listTuong);
+        HienThi(tank, zome, listDan, listTuong, SCORE);
 
         // Xu li phim nhan vao
         int hit = inputKey();
@@ -122,7 +138,7 @@ int main()
             dan.kitu = '#';
             dan.mau = MAU_TANK;
             AddLast(listDan, GetNode(dan));
-        }
+        };
 
         // Xu li Game
         if(listDan.first && listDan.first->data.y == 1)
@@ -153,11 +169,9 @@ int main()
             cout << "THUA";
             while(_getch()!=13);
             RemoveFirst(listTuong);
-        }
+            SCORE = 0;
 
-        gotoXY(CONSOLE_WIDTH, 3);
-        TextColor(112);
-        cout << SCORE;
+        }
 
         time_wait += 100;
         Sleep(100);
@@ -287,7 +301,7 @@ void SetTank(VatThe &tank)
     tank.kitu = '#';
 }
 
-void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong)
+void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong, int score)
 {
     // Ve bien
     for(int i = 0; i < CONSOLE_HEIGHT; i++)
@@ -313,6 +327,8 @@ void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong)
     // Ve Tuong
     VeList(listTuong);
 
+    // Ve diem
+    VeDiem(score);
 
     // In buffer
     gotoXY(0,0);
@@ -327,7 +343,7 @@ void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong)
             else
                 TextColor(buffer[i][j].mau);
 
-            putchar('.');
+            putchar(buffer[i][j].kitu);
             buffer[i][j].kitu = ' ';
         }
 
@@ -467,7 +483,7 @@ void SetZome(VatThe &zome)
     TextColor(0);
     zome.x = (CONSOLE_WIDTH - 30)-3;
     zome.y = CONSOLE_HEIGHT - 10;
-    zome.mau = 80;
+    zome.mau = 85;
     zome.kitu = '#';
     zome.ngang = Trai;
     zome.doc = Len;
@@ -512,3 +528,35 @@ void ZomeDiChuyen(VatThe &zome) {
     }
 }
 
+// music
+void playBackgroundMusic(LPCSTR path)
+{
+    PlaySound(path, NULL, SND_LOOP);
+}
+
+// Scores
+void VeDiem(int score)
+{
+    string s = "SCORE";
+    int a[3] = {0};
+    int x = (CONSOLE_WIDTH + 28) / 2  - s.length();
+    int y = 5;
+
+    VeMotO(y, x, s[0], MAU_MENU);
+    VeMotO(y, x+1, s[1], MAU_MENU);
+    VeMotO(y, x+2, s[2], MAU_MENU);
+    VeMotO(y, x+3, s[3], MAU_MENU);
+    VeMotO(y, x+4, s[4], MAU_MENU);
+    int i = 0;
+    while(score)
+    {
+        a[i] = score % 10;
+        score/= 10;
+        i++;
+    }
+
+    x++;
+    VeMotO(y+1, x, a[2] + '0', MAU_MENU);
+    VeMotO(y+1, x+1, a[1] + '0', MAU_MENU);
+    VeMotO(y+1, x+2, a[0] + '0', MAU_MENU);
+}
