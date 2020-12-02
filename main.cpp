@@ -145,7 +145,7 @@ int main()
             RemoveFirst(listDan);
 
 
-        if(time_wait == 3000)
+        if(time_wait == 2000)
         {
             int diem = (rand() % 100) >= 80 ? 2 : 1;
             ThemTuong(listTuong, diem);
@@ -407,7 +407,6 @@ void ThemTuong(List &listTuong, int diem)
 void TuongRoi(List &listTuong)
 {
     Node *p = listTuong.first;
-    Node *q;
     while(p != NULL)
     {
 
