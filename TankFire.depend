@@ -21,13 +21,16 @@
 1606786209 c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\console.h
 	<windows.h>
 
-1606865736 source:c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\main.cpp
+1606884301 source:c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\main.cpp
 	<iostream>
 	<time.h>
 	<stdlib.h>
 	"console.h"
 	<math.h>
 	<conio.h>
+	<thread>
+	<windows.h>
+	<string>
 
 1606806001 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\console.cpp
 	<stdio.h>

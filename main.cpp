@@ -56,6 +56,8 @@ void RemoveFirst(List &l);
 void RemoveAW(List &l, Node *p);
 Node * FindNode(List &L, int x, int y);
 
+/// Tree
+
 /// GameSetting
 void SetWindowConsole(SHORT width, SHORT height);
 void SetBuffer();
@@ -68,13 +70,13 @@ void DanBay(List &l);
 void ThemTuong(List &listTuong, int diem);
 void TuongRoi(List &listTuong);
 
-// Xu ly va cham
+/// Xu ly va cham
 void XuLyDanChamGach(List &listTuong, List &listDan, int &SCORE);
 int XuLyChamTank(List l_gach, VatThe Tank);
 int XuLyChamBien(List &l_gach);
 void XuLyChamZome(List &l_dan, VatThe zome);
 
-//Zombie
+///Zombie
 void SetZome(VatThe &zome);
 void VeZome(VatThe zome);
 void ZomeDiChuyen(VatThe &zome);
@@ -447,7 +449,7 @@ int XuLyChamTank(List l_gach, VatThe Tank) {
     if(l_gach.first) {
         int dX = abs(Tank.x - l_gach.first->data.x);
         int dY = abs(Tank.y - l_gach.first->data.y);
-        if(dX<2 && dY<1) {
+        if(dX<1 && dY<1) {
             return -1;
         }
     }
