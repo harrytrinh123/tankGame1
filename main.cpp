@@ -7,6 +7,7 @@
 #include <thread>
 #include <windows.h>
 #include <string>
+#include <fstream>
 #pragma comment(lib, "winm.lib")
 
 #define CONSOLE_HEIGHT  25
@@ -57,7 +58,17 @@ void RemoveAW(List &l, Node *p);
 Node * FindNode(List &L, int x, int y);
 
 /// Tree
+struct Tree{
+    int data;
+    Tree* left;
+    Tree* right;
+};
 
+void Free(Tree* root);
+int LeftOf(const Tree* root, const int value);
+int RightOf(const Tree* root, const int value);
+Tree* CreateTree(Tree* T, const int value);
+int MaxTree(Tree* t);
 /// GameSetting
 void SetWindowConsole(SHORT width, SHORT height);
 void SetBuffer();
@@ -147,7 +158,7 @@ int main()
             RemoveFirst(listDan);
 
 
-        if(time_wait == 2000)
+        if(time_wait == 3000)
         {
             int diem = (rand() % 100) >= 80 ? 2 : 1;
             ThemTuong(listTuong, diem);
@@ -166,9 +177,9 @@ int main()
         chamTank = XuLyChamTank(listTuong, tank);
         chamBien = XuLyChamBien(listTuong);
         if(chamTank==-1 || chamBien==-1) {
-            gotoXY(CONSOLE_WIDTH-5, 4);
+            gotoXY(CONSOLE_WIDTH-17, 2);
             TextColor(112);
-            cout << "THUA";
+            cout << "GAMEOVER";
             while(_getch()!=13);
             RemoveFirst(listTuong);
             SCORE = 0;
@@ -178,6 +189,8 @@ int main()
         time_wait += 100;
         Sleep(100);
     }
+
+    threadPlayBGM.~thread();
 
     return 0;
 }
@@ -258,6 +271,43 @@ void RemoveAW(List &l, Node *p)
     }
 
 }
+//Tree
+void Free(Tree* root){
+	if(root == NULL)	return;
+	Free(root->left);
+	Free(root->right);
+	Free(root);
+}
+
+int LeftOf(const Tree* root, const int value){
+	return value <= root->data;
+}
+
+int RightOf(const Tree* root, const int value){
+	return value > root->data;
+}
+Tree* CreateTree(Tree* T, const int value){
+	if(T == NULL){
+		Tree* node = (Tree*) malloc (sizeof(Tree));
+		node->left = NULL;
+		node->right = NULL;
+		node->data = value;
+		return node;
+	}
+	if(LeftOf(T,value))
+		T->left = CreateTree(T->left,value);
+	else if(RightOf(T,value))
+		T->right = CreateTree(T->right,value);
+	return T;
+}
+int MaxTree(Tree* t){
+    if (t->right == NULL)
+    {
+        return t->data;
+    }
+    return MaxTree(t->right);
+}
+
 
 /// Game setting
 void SetWindowConsole(SHORT width, SHORT height)
@@ -557,7 +607,8 @@ void VeDiem(int score)
     }
 
     x++;
-    VeMotO(y+1, x, a[2] + '0', MAU_MENU);
-    VeMotO(y+1, x+1, a[1] + '0', MAU_MENU);
-    VeMotO(y+1, x+2, a[0] + '0', MAU_MENU);
+    VeMotO(y+1, x, a[2] + '0', 11);
+    VeMotO(y+1, x+1, a[1] + '0', 11);
+    VeMotO(y+1, x+2, a[0] + '0', 11);
+    int value = a[0] + a[1] * 10 + a[2] *100;
 }

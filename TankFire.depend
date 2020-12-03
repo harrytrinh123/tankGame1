@@ -51,3 +51,23 @@
 	<windows.h>
 	<string>
 
+1606888023 source:c:\users\tanphuoc-pc\desktop\new folder\tankgame1\console.cpp
+	<stdio.h>
+	<conio.h>
+	"console.h"
+
+1606888023 c:\users\tanphuoc-pc\desktop\new folder\tankgame1\console.h
+	<windows.h>
+
+1606922533 source:c:\users\tanphuoc-pc\desktop\new folder\tankgame1\main.cpp
+	<iostream>
+	<time.h>
+	<stdlib.h>
+	"console.h"
+	<math.h>
+	<conio.h>
+	<thread>
+	<windows.h>
+	<string>
+	<fstream>
+
