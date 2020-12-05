@@ -69,6 +69,13 @@ int LeftOf(const Tree* root, const int value);
 int RightOf(const Tree* root, const int value);
 Tree* CreateTree(Tree* T, const int value);
 int MaxTree(Tree* t);
+int DemNode(Tree* root);
+void LNR(Tree* root);
+
+//Xu li File
+
+
+
 /// GameSetting
 void SetWindowConsole(SHORT width, SHORT height);
 void SetBuffer();
@@ -122,12 +129,13 @@ int main()
 
     int time_wait = 0;
     int SCORE = 0;
+    bool game = true;
 
     // Xu ly cham tank, cham bien
     int chamTank, chamBien;
 
     // Run Game
-    while(true)
+    while(game)
     {
 
         // Hien Thi
@@ -172,17 +180,40 @@ int main()
         // Xu dan cham gach
         XuLyDanChamGach(listTuong, listDan, SCORE);
         XuLyChamZome(listDan, zome);
-
+        //Xu li Tree
+        Tree* root = NULL;
         //Xu ly thang thua
         chamTank = XuLyChamTank(listTuong, tank);
         chamBien = XuLyChamBien(listTuong);
         if(chamTank==-1 || chamBien==-1) {
+            root = CreateTree(root,SCORE); // Khi tank cham gach hoac ganh cham bien thi them score vao tree
+            RemoveFirst(listTuong);
             gotoXY(CONSOLE_WIDTH-17, 2);
             TextColor(112);
             cout << "GAMEOVER";
-            while(_getch()!=13);
-            RemoveFirst(listTuong);
-            SCORE = 0;
+            gotoXY(CONSOLE_WIDTH-15,8);
+            cout<<"MENU";
+            gotoXY(CONSOLE_WIDTH-20,10);
+            cout<<"Choi tiep (Press any key else)";
+            gotoXY(CONSOLE_WIDTH-20,11);
+            cout<<"Bang HighScores(SPACE)";
+            gotoXY(CONSOLE_WIDTH-20,12);
+            cout<<"Thoat(ESC)";
+            int choose = getch();
+            // Xu li menu
+            switch(choose){
+                case 23:{
+                    // Bang HighScore
+                    system("pause");
+                    break;
+                }
+                case 27:{// Thoat
+                    TextColor(MAU_NEN);
+                    system("cls");
+                    game = false;
+                }
+                default : SCORE = 0;
+            }
 
         }
 
@@ -307,6 +338,21 @@ int MaxTree(Tree* t){
     }
     return MaxTree(t->right);
 }
+
+int DemNode(Tree* root){
+    if(root == NULL){
+        return 0;
+    }
+    return DemNode(root->left)+ DemNode(root->right);
+}
+void LNR(Tree* root){
+    if(root == NULL)    return;
+    LNR(root->left);
+    cout << root->data << endl;
+    LNR(root->right);
+}
+//Xu li File
+
 
 
 /// Game setting
