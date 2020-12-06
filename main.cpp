@@ -7,12 +7,12 @@
 #include <thread>
 #include <windows.h>
 #include <string>
+#pragma comment(lib, "winmm.lib")
 #include <fstream>
-#pragma comment(lib, "winm.lib")
 
 #define CONSOLE_HEIGHT  25
 #define CONSOLE_WIDTH   50
-#define MAU_BIEN        119
+#define MAU_BIEN        110
 #define MAU_NEN         0
 #define MAU_TANK        153
 #define MAU_GACH        68
@@ -58,22 +58,32 @@ void RemoveAW(List &l, Node *p);
 Node * FindNode(List &L, int x, int y);
 
 /// Tree
-struct Tree{
-    int data;
-    Tree* left;
-    Tree* right;
+struct TNode {
+	int data;
+	TNode *left, *right;
 };
 
-void Free(Tree* root);
-int LeftOf(const Tree* root, const int value);
-int RightOf(const Tree* root, const int value);
-Tree* CreateTree(Tree* T, const int value);
-int MaxTree(Tree* t);
+typedef TNode *Tree;
+
+void Init(Tree &T);
+TNode * createNode(int x);
+void insertNode(Tree &T, TNode * p);
+void Nhap(Tree &T);
+void RNL(Tree T, int &x, int &y);
+int demNode(Tree T);
+void xoaNhoNhat(Tree &T);
+int isDupplicate(Tree T, int x);
+
+///Xu li File
+int docFile(Tree &T);
+void ghiRNL(Tree T, FILE *f);
+
+
 /// GameSetting
 void SetWindowConsole(SHORT width, SHORT height);
 void SetBuffer();
 void SetTank(VatThe &tank);
-void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong, int score);
+void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong, int score, Tree T);
 void VeMotO(int dong, int cot, char kytu, int mau);
 void VeTank(VatThe tank);
 void VeList(List l);
@@ -93,11 +103,13 @@ void VeZome(VatThe zome);
 void ZomeDiChuyen(VatThe &zome);
 
 // Scores
-void VeDiem(int score);
+void VeDiem(int score, Tree T);
 
 // music
 void playBackgroundMusic(LPCSTR path);
 void playSound(LPCSTR path);
+// Menu
+void Menu(Tree &T, bool game);
 
 int main()
 {
@@ -122,16 +134,23 @@ int main()
 
     int time_wait = 0;
     int SCORE = 0;
+    bool game = true;
 
     // Xu ly cham tank, cham bien
     int chamTank, chamBien;
 
+    // doc file diem
+    Tree T;
+    Init(T);
+    docFile(T);
+
+
     // Run Game
-    while(true)
+    while(game)
     {
 
         // Hien Thi
-        HienThi(tank, zome, listDan, listTuong, SCORE);
+        HienThi(tank, zome, listDan, listTuong, SCORE, T);
 
         // Xu li phim nhan vao
         int hit = inputKey();
@@ -172,17 +191,42 @@ int main()
         // Xu dan cham gach
         XuLyDanChamGach(listTuong, listDan, SCORE);
         XuLyChamZome(listDan, zome);
-
         //Xu ly thang thua
         chamTank = XuLyChamTank(listTuong, tank);
         chamBien = XuLyChamBien(listTuong);
         if(chamTank==-1 || chamBien==-1) {
+            RemoveFirst(listTuong);
+            insertNode(T, createNode(12));
+            xoaNhoNhat(T);
+            SCORE = 0;
+
+            /// Xu ly menu
             gotoXY(CONSOLE_WIDTH-17, 2);
             TextColor(112);
             cout << "GAMEOVER";
-            while(_getch()!=13);
-            RemoveFirst(listTuong);
-            SCORE = 0;
+            gotoXY(CONSOLE_WIDTH-15,8);
+            cout<<"MENU";
+            gotoXY(CONSOLE_WIDTH-20,10);
+            cout<<"Choi tiep (Press any key else)";
+            gotoXY(CONSOLE_WIDTH-20,11);
+            cout<<"Bang HighScores(SPACE)";
+            gotoXY(CONSOLE_WIDTH-20,12);
+            cout<<"Thoat(ESC)";
+            int choose = getch();
+            // Xu li menu
+            switch(choose){
+                case 23:{
+                    // Bang HighScore
+                    system("pause");
+                    break;
+                }
+                case 27:{// Thoat
+                    TextColor(MAU_NEN);
+                    system("cls");
+                    game = false;
+                }
+                default : SCORE = 0;
+            }
 
         }
 
@@ -271,42 +315,104 @@ void RemoveAW(List &l, Node *p)
     }
 
 }
-//Tree
-void Free(Tree* root){
+
+///Tree
+void Free(Tree & root){
 	if(root == NULL)	return;
 	Free(root->left);
 	Free(root->right);
 	Free(root);
 }
 
-int LeftOf(const Tree* root, const int value){
-	return value <= root->data;
+void Init(Tree &T) {
+	T = NULL;
 }
 
-int RightOf(const Tree* root, const int value){
-	return value > root->data;
+TNode * createNode(int x) {
+	TNode *p = new TNode;
+	if(p==NULL) return NULL;
+	p->data = x;
+	p->left = p->right = NULL;
+	return p;
 }
-Tree* CreateTree(Tree* T, const int value){
-	if(T == NULL){
-		Tree* node = (Tree*) malloc (sizeof(Tree));
-		node->left = NULL;
-		node->right = NULL;
-		node->data = value;
-		return node;
+
+
+void insertNode(Tree &T, TNode *p) {
+	if(T==NULL) {
+        T = new TNode;
+		T=p;
 	}
-	if(LeftOf(T,value))
-		T->left = CreateTree(T->left,value);
-	else if(RightOf(T,value))
-		T->right = CreateTree(T->right,value);
-	return T;
+	else {
+		if(T->data == p->data) return;
+		else if(p->data<T->data) insertNode(T->left, p);
+		else if(p->data>T->data) insertNode(T->right, p);
+	}
 }
-int MaxTree(Tree* t){
-    if (t->right == NULL)
-    {
-        return t->data;
-    }
-    return MaxTree(t->right);
+void Nhap(Tree &T) {
+	while(1) {
+		int x;
+		cout << "Nhap x: ";
+		cin >> x;
+		if(x!=0) {
+			TNode *p = createNode(x);
+			insertNode(T, p);
+		}
+		else
+			break;
+	}
 }
+
+int demNode(Tree T) {
+	if(T==NULL) return 0;
+	return 1 + demNode(T->left) + demNode(T->right);
+}
+
+void xoaNhoNhat(Tree &T) {
+	TNode *p = T;
+	TNode *q = NULL;
+	while(p->left != NULL) {
+		q = p;
+		p=p->left;
+	}
+	if(p->right == NULL) {
+		q->left = NULL;
+		delete(p);
+	}
+	else {
+		q->left = p->right;
+		delete(p);
+	}
+}
+
+int isDupplicate(Tree T, int x) {
+    if(T==NULL) return 0;
+    if(T->data == x) return 1;
+    isDupplicate(T->left, x);
+    isDupplicate(T->right, x);
+}
+
+
+///Xu li File
+int docFile(Tree &T) {
+	int num;
+	FILE *f = fopen("hightscore.txt", "r");
+	if(!f)
+		return 0;
+	while(!feof(f)) {
+		fscanf(f,"%d\n", &num);
+		insertNode(T, createNode(num));
+	}
+	fclose(f);
+}
+
+void ghiRNL(Tree T, FILE *f) {
+	if(T!=NULL) {
+		ghiRNL(T->right, f);
+		fprintf(f, "%d\n", T->data);
+		ghiRNL(T->left, f);
+	}
+}
+
 
 
 /// Game setting
@@ -353,13 +459,14 @@ void SetTank(VatThe &tank)
     tank.kitu = '#';
 }
 
-void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong, int score)
+void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong, int score, Tree T)
 {
     // Ve bien
     for(int i = 0; i < CONSOLE_HEIGHT; i++)
     {
         buffer[i][0].kitu = '*';
         buffer[i][CONSOLE_WIDTH-30].kitu = '*';
+        buffer[i][CONSOLE_WIDTH-1].kitu = '*';
     }
     for(int i = 0; i < CONSOLE_WIDTH; i++)
     {
@@ -380,7 +487,7 @@ void HienThi(VatThe tank, VatThe zome, List listDan, List listTuong, int score)
     VeList(listTuong);
 
     // Ve diem
-    VeDiem(score);
+    VeDiem(score, T);
 
     // In buffer
     gotoXY(0,0);
@@ -586,18 +693,42 @@ void playBackgroundMusic(LPCSTR path)
 }
 
 // Scores
-void VeDiem(int score)
+void RNL(Tree T, int &x, int &y) {
+	if(T!=NULL) {
+        y++;
+		RNL(T->right, x, y);
+
+		int a[3] = {0};
+
+        int score = T->data;
+        int i = 0;
+        while(score)
+        {
+            a[i] = score % 10;
+            score/= 10;
+            i++;
+        }
+
+        VeMotO(y+1, x, a[2] + '0', 11);
+        VeMotO(y+1, x+1, a[1] + '0', 11);
+        VeMotO(y+1, x+2, a[0] + '0', 11);
+
+		RNL(T->left, x, y);
+	}
+}
+void VeDiem(int score, Tree T)
 {
     string s = "SCORE";
     int a[3] = {0};
-    int x = (CONSOLE_WIDTH + 28) / 2  - s.length();
+    int x = (CONSOLE_WIDTH +28)/2 - s.length();
     int y = 5;
-
     VeMotO(y, x, s[0], MAU_MENU);
     VeMotO(y, x+1, s[1], MAU_MENU);
     VeMotO(y, x+2, s[2], MAU_MENU);
     VeMotO(y, x+3, s[3], MAU_MENU);
     VeMotO(y, x+4, s[4], MAU_MENU);
+
+
     int i = 0;
     while(score)
     {
@@ -607,8 +738,27 @@ void VeDiem(int score)
     }
 
     x++;
+
     VeMotO(y+1, x, a[2] + '0', 11);
     VeMotO(y+1, x+1, a[1] + '0', 11);
     VeMotO(y+1, x+2, a[0] + '0', 11);
-    int value = a[0] + a[1] * 10 + a[2] *100;
+
+    string duongke = "------------";
+    string hightScores = "HIGHT SCORES";
+    int tempX = (CONSOLE_WIDTH +28)/2 - duongke.length();
+    y = 7;
+    for(int i=0; i< duongke.length(); i++) {
+        VeMotO(y, ++tempX, duongke[i], MAU_MENU);
+    }
+    y=8;
+    tempX = (CONSOLE_WIDTH +28)/2 - duongke.length();
+    for(int i=0; i< duongke.length(); i++) {
+        VeMotO(y, ++tempX, hightScores[i], MAU_MENU);
+    }
+
+    RNL(T, x, y);
+
+
 }
+
+/// Menu game
