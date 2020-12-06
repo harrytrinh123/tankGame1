@@ -8,6 +8,7 @@
 #include <windows.h>
 #include <string>
 #pragma comment(lib, "winmm.lib")
+#include <fstream>
 
 #define CONSOLE_HEIGHT  25
 #define CONSOLE_WIDTH   50
@@ -57,6 +58,23 @@ void RemoveAW(List &l, Node *p);
 Node * FindNode(List &L, int x, int y);
 
 /// Tree
+struct Tree{
+    int data;
+    Tree* left;
+    Tree* right;
+};
+
+void Free(Tree* root);
+int LeftOf(const Tree* root, const int value);
+int RightOf(const Tree* root, const int value);
+Tree* CreateTree(Tree* T, const int value);
+int MaxTree(Tree* t);
+int DemNode(Tree* root);
+void LNR(Tree* root);
+
+//Xu li File
+
+
 
 /// GameSetting
 void SetWindowConsole(SHORT width, SHORT height);
@@ -111,12 +129,13 @@ int main()
 
     int time_wait = 0;
     int SCORE = 0;
+    bool game = true;
 
     // Xu ly cham tank, cham bien
     int chamTank, chamBien;
 
     // Run Game
-    while(true)
+    while(game)
     {
 
         // Hien Thi
@@ -161,23 +180,48 @@ int main()
         // Xu dan cham gach
         XuLyDanChamGach(listTuong, listDan, SCORE);
         XuLyChamZome(listDan, zome);
-
+        //Xu li Tree
+        Tree* root = NULL;
         //Xu ly thang thua
         chamTank = XuLyChamTank(listTuong, tank);
         chamBien = XuLyChamBien(listTuong);
         if(chamTank==-1 || chamBien==-1) {
-            gotoXY(CONSOLE_WIDTH-5, 4);
-            TextColor(112);
-            cout << "THUA";
-            while(_getch()!=13);
+            root = CreateTree(root,SCORE); // Khi tank cham gach hoac ganh cham bien thi them score vao tree
             RemoveFirst(listTuong);
-            SCORE = 0;
+            gotoXY(CONSOLE_WIDTH-17, 2);
+            TextColor(112);
+            cout << "GAMEOVER";
+            gotoXY(CONSOLE_WIDTH-15,8);
+            cout<<"MENU";
+            gotoXY(CONSOLE_WIDTH-20,10);
+            cout<<"Choi tiep (Press any key else)";
+            gotoXY(CONSOLE_WIDTH-20,11);
+            cout<<"Bang HighScores(SPACE)";
+            gotoXY(CONSOLE_WIDTH-20,12);
+            cout<<"Thoat(ESC)";
+            int choose = getch();
+            // Xu li menu
+            switch(choose){
+                case 23:{
+                    // Bang HighScore
+                    system("pause");
+                    break;
+                }
+                case 27:{// Thoat
+                    TextColor(MAU_NEN);
+                    system("cls");
+                    game = false;
+                }
+                default : SCORE = 0;
+            }
 
         }
 
         time_wait += 100;
         Sleep(100);
     }
+
+    threadPlayBGM.~thread();
 
     return 0;
 }
@@ -258,6 +302,58 @@ void RemoveAW(List &l, Node *p)
     }
 
 }
+//Tree
+void Free(Tree* root){
+	if(root == NULL)	return;
+	Free(root->left);
+	Free(root->right);
+	Free(root);
+}
+
+int LeftOf(const Tree* root, const int value){
+	return value <= root->data;
+}
+
+int RightOf(const Tree* root, const int value){
+	return value > root->data;
+}
+Tree* CreateTree(Tree* T, const int value){
+	if(T == NULL){
+		Tree* node = (Tree*) malloc (sizeof(Tree));
+		node->left = NULL;
+		node->right = NULL;
+		node->data = value;
+		return node;
+	}
+	if(LeftOf(T,value))
+		T->left = CreateTree(T->left,value);
+	else if(RightOf(T,value))
+		T->right = CreateTree(T->right,value);
+	return T;
+}
+int MaxTree(Tree* t){
+    if (t->right == NULL)
+    {
+        return t->data;
+    }
+    return MaxTree(t->right);
+}
+
+int DemNode(Tree* root){
+    if(root == NULL){
+        return 0;
+    }
+    return DemNode(root->left)+ DemNode(root->right);
+}
+void LNR(Tree* root){
+    if(root == NULL)    return;
+    LNR(root->left);
+    cout << root->data << endl;
+    LNR(root->right);
+}
+//Xu li File
+
+
 
 /// Game setting
 void SetWindowConsole(SHORT width, SHORT height)
@@ -409,7 +505,6 @@ void ThemTuong(List &listTuong, int diem)
 void TuongRoi(List &listTuong)
 {
     Node *p = listTuong.first;
-    Node *q;
     while(p != NULL)
     {
 
@@ -560,13 +655,8 @@ void VeDiem(int score)
     }
 
     x++;
-    VeMotO(y+1, x, a[2] + '0', MAU_MENU);
-    VeMotO(y+1, x+1, a[1] + '0', MAU_MENU);
-    VeMotO(y+1, x+2, a[0] + '0', MAU_MENU);
-    VeMotO(y+2, x, s1[0], 11);
-    VeMotO(y+2, x+1, s1[1], 11);
-    VeMotO(y+2, x+2, s1[2], 11);
-    VeMotO(y+3, x, s2[0], 11);
-    VeMotO(y+3, x+1, s2[1], 11);
-    VeMotO(y+3, x+2, s2[2], 11);
+    VeMotO(y+1, x, a[2] + '0', 11);
+    VeMotO(y+1, x+1, a[1] + '0', 11);
+    VeMotO(y+1, x+2, a[0] + '0', 11);
+    int value = a[0] + a[1] * 10 + a[2] *100;
 }

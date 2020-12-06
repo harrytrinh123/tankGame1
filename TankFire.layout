@@ -9,7 +9,11 @@
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
+<<<<<<< HEAD
 			<Cursor1 position="613" topLine="11" />
+=======
+			<Cursor1 position="5116" topLine="200" />
+>>>>>>> 9f524ab7fbef4b6a71e71ecc7e3de769eb7c510a
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
