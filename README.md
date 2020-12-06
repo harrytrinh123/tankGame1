@@ -1,6 +1,6 @@
 Đồ án thực hành môn: Cấu trúc dữ liệu & giải thuật.
-Đề tài: Tank game.
-Thành viên:
+<br>Đề tài: Tank game.
+<br>Thành viên:
 - Trịnh Quốc Hoàng
 - Nguyễn Hồng Đạt
 - Trần Tấn Phước
