@@ -7,7 +7,7 @@
 #include <thread>
 #include <windows.h>
 #include <string>
-#pragma comment(lib, "winm.lib")
+#pragma comment(lib, "winmm.lib")
 
 #define CONSOLE_HEIGHT  25
 #define CONSOLE_WIDTH   50
@@ -540,6 +540,8 @@ void playBackgroundMusic(LPCSTR path)
 void VeDiem(int score)
 {
     string s = "SCORE";
+    string s1 = "320";
+    string s2 = "210";
     int a[3] = {0};
     int x = (CONSOLE_WIDTH + 28) / 2  - s.length();
     int y = 5;
@@ -561,4 +563,10 @@ void VeDiem(int score)
     VeMotO(y+1, x, a[2] + '0', MAU_MENU);
     VeMotO(y+1, x+1, a[1] + '0', MAU_MENU);
     VeMotO(y+1, x+2, a[0] + '0', MAU_MENU);
+    VeMotO(y+2, x, s1[0], 11);
+    VeMotO(y+2, x+1, s1[1], 11);
+    VeMotO(y+2, x+2, s1[2], 11);
+    VeMotO(y+3, x, s2[0], 11);
+    VeMotO(y+3, x+1, s2[1], 11);
+    VeMotO(y+3, x+2, s2[2], 11);
 }
