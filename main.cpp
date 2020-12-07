@@ -66,7 +66,7 @@ struct TNode {
 
 typedef TNode *Tree;
 
-void Init(Tree &T);
+void Init_Tree(Tree &T);
 TNode * createNode_Tree(int x);
 void insertNode_Tree(Tree &T, TNode * p);
 void RNL(Tree T, int &x, int &y);
@@ -141,7 +141,7 @@ int main()
 
     // doc file diem
     Tree T;
-    Init(T);
+    Init_Tree(T);
     docFile(T);
 
 
@@ -196,14 +196,14 @@ int main()
         chamBien = XuLyChamBien(listTuong);
         if(chamTank==-1 || chamBien==-1) {
             RemoveFirst(listTuong);
-            insertNode_Tree(T, createNode_Tree(12));
-            xoaNhoNhat(T);
-
-            cout << "GAMEOVER";
+            insertNode_Tree(T, createNode_Tree(SCORE));
+            if(demNode(T) > 5)
+                xoaNhoNhat(T);
 
             /// Xu ly menu
             gotoXY(CONSOLE_WIDTH-17, 2);
             TextColor(71);
+            cout << "GAMEOVER";
 
             int hit = getch();
 
@@ -213,12 +213,17 @@ int main()
             }
             while(hit != 13) hit = _getch();
 
+            SCORE = 0;
             fflush(stdin);
         }
 
         time_wait += 100;
         Sleep(100);
     }
+    // ghi file
+    FILE *f = fopen("hightscore.txt", "w");
+    ghiRNL(T, f);
+    fclose(f);
 
     threadPlayBGM.~thread();
 
@@ -310,7 +315,7 @@ void Free(Tree & root){
 	Free(root);
 }
 
-void Init(Tree &T) {
+void Init_Tree(Tree &T) {
 	T = NULL;
 }
 
@@ -325,6 +330,10 @@ TNode * createNode_Tree(int x) {
 
 void insertNode_Tree(Tree &T, TNode *p) {
 	if(T==NULL) {
+        if(!p)
+        {
+            return;
+        }
 		T=p;
 	}
 	else {
@@ -340,6 +349,9 @@ int demNode(Tree T) {
 }
 
 void xoaNhoNhat(Tree &T) {
+    if(T == NULL)
+        return;
+
 	TNode *p = T;
 	TNode *q = NULL;
 	while(p->left != NULL) {
@@ -667,7 +679,6 @@ void playBackgroundMusic(LPCSTR path)
 // Scores
 void RNL(Tree T, int &x, int &y) {
 	if(T!=NULL) {
-        y++;
 		RNL(T->right, x, y);
 
 		int a[3] = {0};
@@ -684,7 +695,7 @@ void RNL(Tree T, int &x, int &y) {
         VeMotO(y+1, x, a[2] + '0', 11);
         VeMotO(y+1, x+1, a[1] + '0', 11);
         VeMotO(y+1, x+2, a[0] + '0', 11);
-
+        y++;
 		RNL(T->left, x, y);
 	}
 }

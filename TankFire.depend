@@ -43,7 +43,11 @@
 
 1606806001 D
 
+<<<<<<< HEAD
+1607353454 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
+=======
 1607279450 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
+>>>>>>> 0ab3dbd3c406eba2c02afd643316c2215bf80d7e
 	<iostream>
 	<time.h>
 	<stdlib.h>
