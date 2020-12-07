@@ -208,8 +208,11 @@ int main()
             int hit = getch();
 
             if(hit == 27) {
+                FILE * f = fopen("hightscore.txt", "w");
+                ghiRNL(T, f);
+                fclose(f);
                 exit(1);
-            // Save hightscore
+
             }
             while(hit != 13) hit = _getch();
 
@@ -338,6 +341,7 @@ void insertNode_Tree(Tree &T, TNode *p) {
 	}
 	else {
 		if(T->data == p->data) return;
+		else if(p->data == 0) return;
 		else if(p->data<T->data) insertNode_Tree(T->left, p);
 		else if(p->data>T->data) insertNode_Tree(T->right, p);
 	}

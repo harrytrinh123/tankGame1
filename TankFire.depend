@@ -21,7 +21,7 @@
 1606786209 c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\console.h
 	<windows.h>
 
-1607353313 source:c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\main.cpp
+1607354838 source:c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\main.cpp
 	<iostream>
 	<time.h>
 	<stdlib.h>
@@ -43,11 +43,9 @@
 
 1606806001 D
 
-<<<<<<< HEAD
-1607353454 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
-=======
 1607279450 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
->>>>>>> 0ab3dbd3c406eba2c02afd643316c2215bf80d7e
+
+1607279450 3dbd3c406eba2c02afd643316c2215bf80d7e
 	<iostream>
 	<time.h>
 	<stdlib.h>
