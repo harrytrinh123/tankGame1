@@ -10,6 +10,7 @@
 #pragma comment(lib, "winmm.lib")
 #include <fstream>
 
+
 #define CONSOLE_HEIGHT  25
 #define CONSOLE_WIDTH   50
 #define MAU_BIEN        110
@@ -206,8 +207,11 @@ int main()
 
             int hit = getch();
 
-            if(hit == 27)
-                break;
+            if(hit == 27) {
+                exit(1);
+            // Save hightscore
+            }
+            while(hit != 13) hit = _getch();
 
             SCORE = 0;
             fflush(stdin);
@@ -749,7 +753,7 @@ void Menu(Tree &t){
     VeMotO(y, x+1, s[1], MAU_MENU);
     VeMotO(y, x+2, s[2], MAU_MENU);
     VeMotO(y, x+3, s[3], MAU_MENU);
-    string s1 = "Tiep tuc (Any key)";
+    string s1 = "Tiep tuc (Enter)";
     int x1 = (CONSOLE_WIDTH +30)/2 - s1.length()+5;
     int y1 = 17;
     for(int i = 0; i < s1.length(); i++)
