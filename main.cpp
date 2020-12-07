@@ -66,9 +66,8 @@ struct TNode {
 typedef TNode *Tree;
 
 void Init(Tree &T);
-TNode * createNode(int x);
-void insertNode(Tree &T, TNode * p);
-void Nhap(Tree &T);
+TNode * createNode_Tree(int x);
+void insertNode_Tree(Tree &T, TNode * p);
 void RNL(Tree T, int &x, int &y);
 int demNode(Tree T);
 void xoaNhoNhat(Tree &T);
@@ -196,37 +195,38 @@ int main()
         chamBien = XuLyChamBien(listTuong);
         if(chamTank==-1 || chamBien==-1) {
             RemoveFirst(listTuong);
-            insertNode(T, createNode(12));
+            insertNode_Tree(T, createNode_Tree(12));
             xoaNhoNhat(T);
-            SCORE = 0;
+            while(_getch() != 13);
+//            SCORE = 0;
 
             /// Xu ly menu
-            gotoXY(CONSOLE_WIDTH-17, 2);
-            TextColor(112);
-            cout << "GAMEOVER";
-            gotoXY(CONSOLE_WIDTH-15,8);
-            cout<<"MENU";
-            gotoXY(CONSOLE_WIDTH-20,10);
-            cout<<"Choi tiep (Press any key else)";
-            gotoXY(CONSOLE_WIDTH-20,11);
-            cout<<"Bang HighScores(SPACE)";
-            gotoXY(CONSOLE_WIDTH-20,12);
-            cout<<"Thoat(ESC)";
-            int choose = getch();
-            // Xu li menu
-            switch(choose){
-                case 23:{
-                    // Bang HighScore
-                    system("pause");
-                    break;
-                }
-                case 27:{// Thoat
-                    TextColor(MAU_NEN);
-                    system("cls");
-                    game = false;
-                }
-                default : SCORE = 0;
-            }
+//            gotoXY(CONSOLE_WIDTH-17, 2);
+//            TextColor(112);
+//            cout << "GAMEOVER";
+//            gotoXY(CONSOLE_WIDTH-15,8);
+//            cout<<"MENU";
+//            gotoXY(CONSOLE_WIDTH-20,10);
+//            cout<<"Choi tiep (Press any key else)";
+//            gotoXY(CONSOLE_WIDTH-20,11);
+//            cout<<"Bang HighScores(SPACE)";
+//            gotoXY(CONSOLE_WIDTH-20,12);
+//            cout<<"Thoat(ESC)";
+//            int choose = getch();
+//            // Xu li menu
+//            switch(choose){
+//                case 23:{
+//                    // Bang HighScore
+//                    system("pause");
+//                    break;
+//                }
+//                case 27:{// Thoat
+//                    TextColor(MAU_NEN);
+//                    system("cls");
+//                    game = false;
+//                }
+//                default : SCORE = 0;
+//            }
 
         }
 
@@ -328,7 +328,7 @@ void Init(Tree &T) {
 	T = NULL;
 }
 
-TNode * createNode(int x) {
+TNode * createNode_Tree(int x) {
 	TNode *p = new TNode;
 	if(p==NULL) return NULL;
 	p->data = x;
@@ -337,28 +337,15 @@ TNode * createNode(int x) {
 }
 
 
-void insertNode(Tree &T, TNode *p) {
+void insertNode_Tree(Tree &T, TNode *p) {
 	if(T==NULL) {
         T = new TNode;
 		T=p;
 	}
 	else {
 		if(T->data == p->data) return;
-		else if(p->data<T->data) insertNode(T->left, p);
-		else if(p->data>T->data) insertNode(T->right, p);
-	}
-}
-void Nhap(Tree &T) {
-	while(1) {
-		int x;
-		cout << "Nhap x: ";
-		cin >> x;
-		if(x!=0) {
-			TNode *p = createNode(x);
-			insertNode(T, p);
-		}
-		else
-			break;
+		else if(p->data<T->data) insertNode_Tree(T->left, p);
+		else if(p->data>T->data) insertNode_Tree(T->right, p);
 	}
 }
 
@@ -400,7 +387,7 @@ int docFile(Tree &T) {
 		return 0;
 	while(!feof(f)) {
 		fscanf(f,"%d\n", &num);
-		insertNode(T, createNode(num));
+		insertNode_Tree(T, createNode_Tree(num));
 	}
 	fclose(f);
 }
