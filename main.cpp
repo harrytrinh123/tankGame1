@@ -745,20 +745,51 @@ void VeDiem(int score, Tree T)
 
     string duongke = "------------";
     string hightScores = "HIGHT SCORES";
-    int tempX = (CONSOLE_WIDTH +28)/2 - duongke.length();
+    int tempX = (CONSOLE_WIDTH +32)/2 - duongke.length();
     y = 7;
     for(int i=0; i< duongke.length(); i++) {
         VeMotO(y, ++tempX, duongke[i], MAU_MENU);
     }
     y=8;
-    tempX = (CONSOLE_WIDTH +28)/2 - duongke.length();
+    tempX = (CONSOLE_WIDTH +32)/2 - duongke.length();
     for(int i=0; i< duongke.length(); i++) {
         VeMotO(y, ++tempX, hightScores[i], MAU_MENU);
     }
 
     RNL(T, x, y);
-
+    Menu(T,true);
 
 }
 
 /// Menu game
+void Menu(Tree &t, bool game){
+    string s = "MENU";
+    int x = (CONSOLE_WIDTH +27)/2 - s.length();
+    int y = 16;
+    VeMotO(y, x, s[0], MAU_MENU);
+    VeMotO(y, x+1, s[1], MAU_MENU);
+    VeMotO(y, x+2, s[2], MAU_MENU);
+    VeMotO(y, x+3, s[3], MAU_MENU);
+    string s1 = "Tiep tuc";
+    int x1 = (CONSOLE_WIDTH +30)/2 - s1.length();
+    int y1 = 17;
+    VeMotO(y1, x1, s1[0], MAU_MENU);
+    VeMotO(y1, x1+1, s1[1], MAU_MENU);
+    VeMotO(y1, x1+2, s1[2], MAU_MENU);
+    VeMotO(y1, x1+3, s1[3], MAU_MENU);
+    VeMotO(y1, x1+4, s1[4], MAU_MENU);
+    VeMotO(y1, x1+5, s1[5], MAU_MENU);
+    VeMotO(y1, x1+6, s1[6], MAU_MENU);
+    VeMotO(y1, x1+7, s1[7], MAU_MENU);
+    VeMotO(y1, x1+8, s1[8], MAU_MENU);
+
+    string s2 = "Thoat";
+    int x2 = (CONSOLE_WIDTH + 25)/2 - s2.length();
+    int y2 = 18;
+    VeMotO(y2, x2, s2[0], MAU_MENU);
+    VeMotO(y2, x2+1, s2[1], MAU_MENU);
+    VeMotO(y2, x2+2, s2[2], MAU_MENU);
+    VeMotO(y2, x2+3, s2[3], MAU_MENU);
+    VeMotO(y2, x2+4, s2[4], MAU_MENU);
+
+}
