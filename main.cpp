@@ -209,7 +209,6 @@ int main()
 
             if(hit == 27) {
                 game = false;
-            // Save hightscore
             }
             else
             {
@@ -342,6 +341,7 @@ void insertNode_Tree(Tree &T, TNode *p) {
 	}
 	else {
 		if(T->data == p->data) return;
+		else if(p->data == 0) return;
 		else if(p->data<T->data) insertNode_Tree(T->left, p);
 		else if(p->data>T->data) insertNode_Tree(T->right, p);
 	}
