@@ -1,13 +1,13 @@
 # depslib dependency file v1.0
-1443331591 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\game_final3\tankfire\console.cpp
+1443331591 source:c:\users\noname\onedrive\mï¿½y tï¿½nh\bt_ctdlgt\game_final3\tankfire\console.cpp
 	<stdio.h>
 	<conio.h>
 	"console.h"
 
-1443331617 c:\users\noname\onedrive\máy tính\bt_ctdlgt\game_final3\tankfire\console.h
+1443331617 c:\users\noname\onedrive\mï¿½y tï¿½nh\bt_ctdlgt\game_final3\tankfire\console.h
 	<windows.h>
 
-1606759851 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\game_final3\tankfire\main.cpp
+1606759851 source:c:\users\noname\onedrive\mï¿½y tï¿½nh\bt_ctdlgt\game_final3\tankfire\main.cpp
 	<iostream>
 	<time.h>
 	<stdlib.h>
@@ -21,7 +21,7 @@
 1606786209 c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\console.h
 	<windows.h>
 
-1607349073 source:c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\main.cpp
+1607349590 source:c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\main.cpp
 	<iostream>
 	<time.h>
 	<stdlib.h>
@@ -33,15 +33,21 @@
 	<string>
 	<fstream>
 
-1606806001 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\console.cpp
+1606806001 source:c:\users\noname\onedrive\mï¿½y tï¿½nh\bt_ctdlgt\tankgame1\console.cpp
 	<stdio.h>
 	<conio.h>
 	"console.h"
 
-1606806001 c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\console.h
+1606806001 c:\users\noname\onedrive\mï¿½y tï¿½nh\bt_ctdlgt\tankgame1\console.h
 	<windows.h>
 
+1606806001 D
+
+1606884036 source:c:\users\noname\onedrive\mï¿½y tï¿½nh\bt_ctdlgt\tankgame1\main.cpp
+
 1607279450 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
+
+1607279450 c737d5ab57205e58ae902cc7f1ef93a9e38eb
 	<iostream>
 	<time.h>
 	<stdlib.h>
