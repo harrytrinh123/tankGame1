@@ -21,7 +21,7 @@
 1606786209 c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\console.h
 	<windows.h>
 
-1607349590 source:c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\main.cpp
+1607351821 source:c:\users\jack\desktop\tankgamefixed-master\tankgamefixed-master\main.cpp
 	<iostream>
 	<time.h>
 	<stdlib.h>
@@ -32,6 +32,7 @@
 	<windows.h>
 	<string>
 	<fstream>
+	<cstdlib>
 
 1606806001 source:c:\users\noname\onedrive\mï¿½y tï¿½nh\bt_ctdlgt\tankgame1\console.cpp
 	<stdio.h>
@@ -41,10 +42,9 @@
 1606806001 c:\users\noname\onedrive\mï¿½y tï¿½nh\bt_ctdlgt\tankgame1\console.h
 	<windows.h>
 
-<<<<<<< HEAD
-1607343846 D
+1606806001 D
 
-1607349512 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
+1607279450 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
 	<iostream>
 	<time.h>
 	<stdlib.h>
@@ -61,15 +61,8 @@
 1607279450 c737d5ab57205e58ae902cc7f1ef93a9e38eb
 
 1607279450 12b1fca5e74ed62c580ee2c814395405500b2
-=======
-1606806001 D
 
-1606884036 source:c:\users\noname\onedrive\mï¿½y tï¿½nh\bt_ctdlgt\tankgame1\main.cpp
-
-1607279450 source:c:\users\noname\onedrive\máy tính\bt_ctdlgt\tankgame1\main.cpp
-
-1607279450 c737d5ab57205e58ae902cc7f1ef93a9e38eb
->>>>>>> 30560e47a759a615cadee7321159cd3e1941f665
+1607279450 60e47a759a615cadee7321159cd3e1941f665
 	<iostream>
 	<time.h>
 	<stdlib.h>

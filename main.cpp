@@ -10,6 +10,7 @@
 #pragma comment(lib, "winmm.lib")
 #include <fstream>
 
+
 #define CONSOLE_HEIGHT  25
 #define CONSOLE_WIDTH   50
 #define MAU_BIEN        110
@@ -197,47 +198,20 @@ int main()
             RemoveFirst(listTuong);
             insertNode_Tree(T, createNode_Tree(12));
             xoaNhoNhat(T);
-            while(_getch() != 13);
-//            SCORE = 0;
+
+            cout << "GAMEOVER";
 
             /// Xu ly menu
-<<<<<<< HEAD
             gotoXY(CONSOLE_WIDTH-17, 2);
             TextColor(71);
-            cout << "GAMEOVER";
-=======
-//            gotoXY(CONSOLE_WIDTH-17, 2);
-//            TextColor(112);
-//            cout << "GAMEOVER";
-//            gotoXY(CONSOLE_WIDTH-15,8);
-//            cout<<"MENU";
-//            gotoXY(CONSOLE_WIDTH-20,10);
-//            cout<<"Choi tiep (Press any key else)";
-//            gotoXY(CONSOLE_WIDTH-20,11);
-//            cout<<"Bang HighScores(SPACE)";
-//            gotoXY(CONSOLE_WIDTH-20,12);
-//            cout<<"Thoat(ESC)";
-//            int choose = getch();
-//            // Xu li menu
-//            switch(choose){
-//                case 23:{
-//                    // Bang HighScore
-//                    system("pause");
-//                    break;
-//                }
-//                case 27:{// Thoat
-//                    TextColor(MAU_NEN);
-//                    system("cls");
-//                    game = false;
-//                }
-//                default : SCORE = 0;
-//            }
->>>>>>> 30560e47a759a615cadee7321159cd3e1941f665
 
             int hit = getch();
 
-            if(hit == 27)
-                break;
+            if(hit == 27) {
+                exit(1);
+            // Save hightscore
+            }
+            while(hit != 13) hit = _getch();
 
             fflush(stdin);
         }
@@ -768,7 +742,7 @@ void Menu(Tree &t){
     VeMotO(y, x+1, s[1], MAU_MENU);
     VeMotO(y, x+2, s[2], MAU_MENU);
     VeMotO(y, x+3, s[3], MAU_MENU);
-    string s1 = "Tiep tuc (Any key)";
+    string s1 = "Tiep tuc (Enter)";
     int x1 = (CONSOLE_WIDTH +30)/2 - s1.length()+5;
     int y1 = 17;
     for(int i = 0; i < s1.length(); i++)
