@@ -109,7 +109,7 @@ void VeDiem(int score, Tree T);
 void playBackgroundMusic(LPCSTR path);
 void playSound(LPCSTR path);
 // Menu
-void Menu(Tree &T, bool game);
+void Menu(Tree T, bool &game);
 
 int main()
 {
@@ -202,32 +202,10 @@ int main()
 
             /// Xu ly menu
             gotoXY(CONSOLE_WIDTH-17, 2);
-            TextColor(112);
+            TextColor(71);
             cout << "GAMEOVER";
-            gotoXY(CONSOLE_WIDTH-15,8);
-            cout<<"MENU";
-            gotoXY(CONSOLE_WIDTH-20,10);
-            cout<<"Choi tiep (Press any key else)";
-            gotoXY(CONSOLE_WIDTH-20,11);
-            cout<<"Bang HighScores(SPACE)";
-            gotoXY(CONSOLE_WIDTH-20,12);
-            cout<<"Thoat(ESC)";
-            int choose = getch();
-            // Xu li menu
-            switch(choose){
-                case 23:{
-                    // Bang HighScore
-                    system("pause");
-                    break;
-                }
-                case 27:{// Thoat
-                    TextColor(MAU_NEN);
-                    system("cls");
-                    game = false;
-                }
-                default : SCORE = 0;
-            }
 
+            Menu(T, game);
         }
 
         time_wait += 100;
@@ -339,7 +317,6 @@ TNode * createNode(int x) {
 
 void insertNode(Tree &T, TNode *p) {
 	if(T==NULL) {
-        T = new TNode;
 		T=p;
 	}
 	else {
@@ -745,13 +722,13 @@ void VeDiem(int score, Tree T)
 
     string duongke = "------------";
     string hightScores = "HIGHT SCORES";
-    int tempX = (CONSOLE_WIDTH +28)/2 - duongke.length();
+    int tempX = ((CONSOLE_WIDTH +28)/2 - duongke.length())+3;
     y = 7;
     for(int i=0; i< duongke.length(); i++) {
         VeMotO(y, ++tempX, duongke[i], MAU_MENU);
     }
     y=8;
-    tempX = (CONSOLE_WIDTH +28)/2 - duongke.length();
+    tempX -= 12;
     for(int i=0; i< duongke.length(); i++) {
         VeMotO(y, ++tempX, hightScores[i], MAU_MENU);
     }
@@ -762,3 +739,30 @@ void VeDiem(int score, Tree T)
 }
 
 /// Menu game
+
+void Menu(Tree T, bool &game)
+{
+    gotoXY(CONSOLE_WIDTH-15,8);
+    cout<<"MENU";
+    gotoXY(CONSOLE_WIDTH-20,10);
+    cout<<"Choi tiep (Press any key else)";
+    gotoXY(CONSOLE_WIDTH-20,11);
+    cout<<"Bang HighScores(SPACE)";
+    gotoXY(CONSOLE_WIDTH-20,12);
+    cout<<"Thoat(ESC)";
+    int choose = getch();
+    // Xu li menu
+    switch(choose){
+        case 23:{
+            // Bang HighScore
+            system("pause");
+            break;
+        }
+        case 27:{// Thoat
+            TextColor(MAU_NEN);
+            system("cls");
+            game = false;
+            break;
+        }
+    }
+}
