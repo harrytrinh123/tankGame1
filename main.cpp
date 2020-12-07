@@ -208,10 +208,14 @@ int main()
             int hit = getch();
 
             if(hit == 27) {
-                exit(1);
+                game = false;
             // Save hightscore
             }
-            while(hit != 13) hit = _getch();
+            else
+            {
+                while(hit != 13) hit = _getch();
+            }
+
 
             SCORE = 0;
             fflush(stdin);
