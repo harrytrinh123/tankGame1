@@ -109,7 +109,7 @@ void VeDiem(int score, Tree T);
 void playBackgroundMusic(LPCSTR path);
 void playSound(LPCSTR path);
 // Menu
-void Menu(Tree T, bool &game);
+void Menu(Tree& t);
 
 int main()
 {
@@ -205,7 +205,12 @@ int main()
             TextColor(71);
             cout << "GAMEOVER";
 
-            Menu(T, game);
+            int hit = getch();
+
+            if(hit == 27)
+                break;
+
+            fflush(stdin);
         }
 
         time_wait += 100;
@@ -722,47 +727,45 @@ void VeDiem(int score, Tree T)
 
     string duongke = "------------";
     string hightScores = "HIGHT SCORES";
-    int tempX = ((CONSOLE_WIDTH +28)/2 - duongke.length())+3;
+    int tempX = (CONSOLE_WIDTH +32)/2 - duongke.length();
     y = 7;
     for(int i=0; i< duongke.length(); i++) {
         VeMotO(y, ++tempX, duongke[i], MAU_MENU);
     }
     y=8;
-    tempX -= 12;
+    tempX = (CONSOLE_WIDTH +32)/2 - duongke.length();
     for(int i=0; i< duongke.length(); i++) {
         VeMotO(y, ++tempX, hightScores[i], MAU_MENU);
     }
 
     RNL(T, x, y);
-
+    Menu(T);
 
 }
 
 /// Menu game
-
-void Menu(Tree T, bool &game)
-{
-    gotoXY(CONSOLE_WIDTH-15,8);
-    cout<<"MENU";
-    gotoXY(CONSOLE_WIDTH-20,10);
-    cout<<"Choi tiep (Press any key else)";
-    gotoXY(CONSOLE_WIDTH-20,11);
-    cout<<"Bang HighScores(SPACE)";
-    gotoXY(CONSOLE_WIDTH-20,12);
-    cout<<"Thoat(ESC)";
-    int choose = getch();
-    // Xu li menu
-    switch(choose){
-        case 23:{
-            // Bang HighScore
-            system("pause");
-            break;
-        }
-        case 27:{// Thoat
-            TextColor(MAU_NEN);
-            system("cls");
-            game = false;
-            break;
-        }
+void Menu(Tree &t){
+    string s = "MENU";
+    int x = (CONSOLE_WIDTH +27)/2 - s.length();
+    int y = 16;
+    VeMotO(y, x, s[0], MAU_MENU);
+    VeMotO(y, x+1, s[1], MAU_MENU);
+    VeMotO(y, x+2, s[2], MAU_MENU);
+    VeMotO(y, x+3, s[3], MAU_MENU);
+    string s1 = "Tiep tuc (Any key)";
+    int x1 = (CONSOLE_WIDTH +30)/2 - s1.length()+5;
+    int y1 = 17;
+    for(int i = 0; i < s1.length(); i++)
+    {
+        VeMotO(y1, x1+i, s1[i], MAU_MENU);
     }
+
+    string s2 = "Thoat (ESC)";
+    int x2 = (CONSOLE_WIDTH + 25)/2 - s2.length() + 4;
+    int y2 = 18;
+    for(int i = 0; i < s2.length(); i++)
+    {
+        VeMotO(y2, x2+i, s2[i], MAU_MENU);
+    }
+
 }
