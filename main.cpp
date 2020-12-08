@@ -208,13 +208,13 @@ int main()
             int hit = getch();
 
             if(hit == 27) {
-                FILE * f = fopen("hightscore.txt", "w");
-                ghiRNL(T, f);
-                fclose(f);
-                exit(1);
-
+                game = false;
             }
-            while(hit != 13) hit = _getch();
+            else
+            {
+                while(hit != 13) hit = _getch();
+            }
+
 
             SCORE = 0;
             fflush(stdin);
