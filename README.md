@@ -1,10 +1,10 @@
-<b>Đồ án thực hành môn: Cấu trúc dữ liệu & giải thuật.<b>
+<b>Đồ án thực hành môn: Cấu trúc dữ liệu & giải thuật.</b>
 <br>Đề tài: Tank game.
 <br>Game bắn gạch. Gạch sẽ rơi xuống, nhiệm vụ là điều khiển tank để bắn các viên gạch không để gạch chạm vào tank hoặc tường dưới. Zombie có khả năng nuốt đạn.
 <br>Sử dụng kiến thức của môn cấu trúc dữ liệu & giải thuật như:
 - Danh sách liên kết đơn
 - Cây nhị phân
-Ngoài ra còn sử dụng:
+<br>Ngoài ra còn sử dụng:
 - Buffer
 - console.h
 <br>Thành viên:
